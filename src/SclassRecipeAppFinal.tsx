@@ -27,8 +27,6 @@ type Recipe = {
   name: string;
   clientName: string;
   servings: number;
-  supportsLayers?: boolean;
-  sliceOptions?: number[];
   base: Ingredient[];
   method: string[];
   flavors: Record<string, Ingredient[]>;
@@ -76,11 +74,20 @@ const db: Record<string, { unit: string; cal: number; p: number; c: number; f: n
   "sugar-free syrup": { unit: "g", cal: 0.2, p: 0, c: 0.05, f: 0 },
   blueberries: { unit: "g", cal: 0.57, p: 0.007, c: 0.145, f: 0.003 },
   strawberries: { unit: "g", cal: 0.32, p: 0.007, c: 0.077, f: 0.003 },
-  mint: { unit: "g", cal: 0.44, p: 0.03, c: 0.08, f: 0.01 },
-  caramel: { unit: "g", cal: 3.8, p: 0.0, c: 0.8, f: 0.0 },
-  pecan: { unit: "g", cal: 6.91, p: 0.09, c: 0.14, f: 0.72 },
-  peach: { unit: "g", cal: 0.39, p: 0.009, c: 0.096, f: 0.003 },
+  almond: { unit: "g", cal: 5.79, p: 0.21, c: 0.22, f: 0.5 },
+  apple: { unit: "g", cal: 0.52, p: 0.003, c: 0.14, f: 0.002 },
   banana: { unit: "g", cal: 0.89, p: 0.011, c: 0.228, f: 0.003 },
+  carrot: { unit: "g", cal: 0.41, p: 0.009, c: 0.096, f: 0.002 },
+  cherry: { unit: "g", cal: 0.5, p: 0.01, c: 0.12, f: 0.003 },
+  coconut: { unit: "g", cal: 3.54, p: 0.033, c: 0.15, f: 0.33 },
+  lemon: { unit: "g", cal: 0.29, p: 0.011, c: 0.093, f: 0.003 },
+  pumpkin: { unit: "g", cal: 0.26, p: 0.01, c: 0.065, f: 0.001 },
+  peach: { unit: "g", cal: 0.39, p: 0.009, c: 0.096, f: 0.003 },
+  pecan: { unit: "g", cal: 6.91, p: 0.09, c: 0.14, f: 0.72 },
+  caramel: { unit: "g", cal: 3.8, p: 0, c: 0.8, f: 0 },
+  mint: { unit: "g", cal: 0.44, p: 0.03, c: 0.08, f: 0.01 },
+  salt: { unit: "g", cal: 0, p: 0, c: 0, f: 0 },
+
   pb2: { unit: "g", cal: 4, p: 0.5, c: 0.33, f: 0.125 },
   "biscoff spread": { unit: "g", cal: 5.84, p: 0.03, c: 0.58, f: 0.37 },
   "dark chocolate chips": { unit: "g", cal: 5, p: 0.06, c: 0.63, f: 0.27 },
@@ -95,14 +102,6 @@ const db: Record<string, { unit: string; cal: number; p: number; c: number; f: n
   "chocolate crispy rice cereal": { unit: "g", cal: 4.04, p: 0.06, c: 0.85, f: 0.09 },
   "mini marshmallows": { unit: "g", cal: 3.18, p: 0.02, c: 0.79, f: 0 },
   "light butter": { unit: "g", cal: 3.6, p: 0, c: 0, f: 0.4 },
-  almond: { unit: "g", cal: 5.79, p: 0.21, c: 0.22, f: 0.5 },
-  apple: { unit: "g", cal: 0.52, p: 0.003, c: 0.14, f: 0.002 },
-  carrot: { unit: "g", cal: 0.41, p: 0.009, c: 0.096, f: 0.002 },
-  cherry: { unit: "g", cal: 0.5, p: 0.01, c: 0.12, f: 0.003 },
-  coconut: { unit: "g", cal: 6.6, p: 0.07, c: 0.24, f: 0.65 },
-  lemon: { unit: "g", cal: 0.29, p: 0.011, c: 0.093, f: 0.003 },
-  pumpkin: { unit: "g", cal: 0.26, p: 0.01, c: 0.065, f: 0.001 },
-  salt: { unit: "g", cal: 0, p: 0, c: 0, f: 0 },
 };
 
 const goalMultipliers: Record<Goal, number> = {
@@ -218,98 +217,6 @@ const commonToppings: Record<string, Ingredient[]> = {
 };
 
 const recipes: Recipe[] = [
-  {
-    category: "Cakes",
-    name: "Base Protein Cake",
-    clientName: "Protein Cake",
-    servings: 8,
-    supportsLayers: true,
-    sliceOptions: [6, 8],
-    base: [["whey isolate", 50], ["oat flour", 40], ["egg whites", 120], ["greek yogurt nonfat", 50], ["almond milk unsweetened", 40], ["baking powder", 8], ["zero-cal sweetener", 8], ["vanilla extract", 4]],
-    method: [
-      "Preheat oven to 350°F and lightly grease or line your cake pan.",
-      "Whisk the dry ingredients together until fully even.",
-      "Whisk the wet ingredients separately until smooth.",
-      "Combine wet and dry ingredients and mix until fully smooth.",
-      "Add the selected flavor ingredients and mix only until evenly distributed.",
-      "For layered cakes, divide the batter evenly across the selected number of pans or bake layers one at a time.",
-      "Bake until the center is set and a toothpick comes out mostly clean.",
-      "Cool the cake layers fully before adding fillings, swirls, frosting, or stacking.",
-      "If using 2 or 3 layers, build the center filling between each layer, then finish with the selected topping.",
-      "Slice into the selected number of servings."
-    ],
-    flavors: {
-      Vanilla: [["instant pudding sugar-free vanilla", 8]],
-      Chocolate: [["cocoa powder", 10]],
-      Strawberry: [["strawberries", 80]],
-      Banana: [["banana", 80]],
-      "Banana Nut": [["banana", 70], ["pecan", 12]],
-      "Apple Cinnamon": [["apple", 80], ["cinnamon", 4]],
-      Pumpkin: [["pumpkin", 90], ["cinnamon", 3]],
-      Lemon: [["lemon", 20]],
-      Coconut: [["coconut", 12]],
-      Cherry: [["cherry", 80]],
-      "Chocolate Strawberry": [["cocoa powder", 8], ["strawberries", 60]],
-      "Brownie Batter": [["cocoa powder", 12], ["zero-cal sweetener", 4]],
-      "Cake Batter": [["instant pudding sugar-free vanilla", 10]],
-      "Red Velvet": [["cocoa powder", 6], ["zero-cal sweetener", 4]],
-      "Carrot Cake": [["carrot", 70], ["cinnamon", 4]]
-    },
-    flavorHow: {
-      Vanilla: ["Whisk the vanilla pudding-style ingredients directly into the base until smooth."],
-      Chocolate: ["Whisk the cocoa into the dry ingredients first so the cake stays even and rich."],
-      Strawberry: ["Blend or finely chop the strawberries, then fold them in gently at the end."],
-      Banana: ["Mash the banana smooth first, then blend it fully into the batter."],
-      "Banana Nut": ["Mash the banana into the batter first, then fold the pecans in last."],
-      "Apple Cinnamon": ["Fold the diced apple in last after whisking the cinnamon evenly into the batter."],
-      Pumpkin: ["Whisk the pumpkin and cinnamon into the wet ingredients before combining with the dry."],
-      Lemon: ["Whisk the lemon ingredient into the wet ingredients so the flavor spreads evenly."],
-      Coconut: ["Fold the coconut in last so it stays textured in the crumb."],
-      Cherry: ["Fold chopped cherries in gently at the end."],
-      "Chocolate Strawberry": ["Whisk cocoa into the batter first, then fold strawberries in last."],
-      "Brownie Batter": ["Whisk cocoa in fully and keep the batter slightly thicker for a denser crumb."],
-      "Cake Batter": ["Whisk the vanilla pudding-style ingredients fully into the batter."],
-      "Red Velvet": ["Whisk the cocoa and sweetener in until fully even for a light red-velvet style profile."],
-      "Carrot Cake": ["Fold the carrot in gently after the cinnamon is evenly whisked through the batter."]
-    },
-    swirls: {
-      None: [],
-      "Cheesecake Layer": [["greek yogurt nonfat", 80], ["pudding mix sugar-free cheesecake", 8]],
-      "PB Layer": [["pb2", 20], ["almond milk unsweetened", 16]],
-      "Biscoff Layer": [["biscoff spread", 24]],
-      "Chocolate Ribbon": [["sugar-free syrup", 20], ["cocoa powder", 6]],
-      "Fruit Jam Layer": [["strawberries", 80]]
-    },
-    swirlBuild: {
-      None: ["No filling or center layer is selected."],
-      "Cheesecake Layer": ["Mix yogurt and cheesecake pudding until thick.", "Spread evenly between cooled cake layers."],
-      "PB Layer": ["Mix PB2 and almond milk into a thick spread.", "Spread evenly between cake layers and keep it slightly away from the edges."],
-      "Biscoff Layer": ["Warm slightly until spreadable, then apply a thin even middle layer."],
-      "Chocolate Ribbon": ["Mix syrup and cocoa until glossy, then spread or drizzle lightly between layers or over the top before stacking."],
-      "Fruit Jam Layer": ["Lightly mash the fruit into a jam-style center and spread between layers once the cake is fully cooled."]
-    },
-    toppings: {
-      None: [],
-      "Protein Frost": [["greek yogurt nonfat", 60], ["instant pudding sugar-free vanilla", 8]],
-      "Chocolate Drip": [["sugar-free syrup", 18], ["cocoa powder", 4]],
-      "PB Drizzle": [["pb2", 12], ["almond milk unsweetened", 10]],
-      "Biscoff Drizzle": [["biscoff spread", 14]],
-      "Fresh Fruit Top": [["strawberries", 70]]
-    },
-    toppingHow: {
-      None: ["No topping selected."],
-      "Protein Frost": ["Whisk until thick and spread over the cooled cake or over the top and sides."],
-      "Chocolate Drip": ["Whisk until smooth and drip over the cake once the surface is cool enough to hold it."],
-      "PB Drizzle": ["Mix until glossy and drizzle over the stacked cake after assembly."],
-      "Biscoff Drizzle": ["Warm slightly and drizzle lightly over the finished cake."],
-      "Fresh Fruit Top": ["Add fresh fruit on top right before serving."]
-    },
-    creami: [
-      "Blend one cake slice with 100–140ml almond milk for a cake-batter style Creami base.",
-      "Freeze flat, spin once, scrape down, then respin.",
-      "Use the selected topping or swirl after the final spin for a layered cake style pint."
-    ]
-  },
   {
     category: "Muffins",
     name: "Base Protein Muffins",
@@ -1110,8 +1017,7 @@ function fmt(m: Macro) {
 }
 
 function ingredientLine([name, amt]: Ingredient) {
-  const item = db[name];
-  const unit = item ? (item.unit === "unit" ? "" : item.unit) : "";
+  const unit = db[name].unit === "unit" ? "" : db[name].unit;
   return `${amt}${unit} ${name}`.trim();
 }
 
@@ -1139,8 +1045,8 @@ function buildComboFlavor(
   intensity: ComboIntensity,
   flavorMap: Record<string, Ingredient[]>
 ): Ingredient[] {
-  const primary = flavorMap[primaryFlavor] || [];
-  const secondary = secondaryFlavor !== "None" ? (flavorMap[secondaryFlavor] || []) : [];
+  const primary = Array.isArray(flavorMap[primaryFlavor]) ? flavorMap[primaryFlavor] : [];
+  const secondary = secondaryFlavor !== "None" && Array.isArray(flavorMap[secondaryFlavor]) ? flavorMap[secondaryFlavor] : [];
 
   if (secondaryFlavor === "None") return primary;
 
@@ -1158,7 +1064,8 @@ function buildComboFlavor(
 }
 
 function buildComboFlavorLabel(primaryFlavor: string, secondaryFlavor: string) {
-  return secondaryFlavor === "None" ? primaryFlavor : `${primaryFlavor} + ${secondaryFlavor}`;
+  if (secondaryFlavor === "None") return primaryFlavor;
+  return `${primaryFlavor} + ${secondaryFlavor}`;
 }
 
 
@@ -1615,11 +1522,7 @@ function RecipeCard({
   proteinMode: ProteinMode;
   index: number;
 }) {
-  const [cakeLayers, setCakeLayers] = useState(1);
-  const [cakeSlices, setCakeSlices] = useState(recipe.sliceOptions?.[0] || recipe.servings);
-  const isLayeredCake = recipe.supportsLayers === true;
-  const factor = goalMultipliers[goal] * (isLayeredCake ? cakeLayers : 1);
-  const servingsCount = isLayeredCake ? cakeSlices : recipe.servings;
+  const factor = goalMultipliers[goal];
 
   const scaledBase = useMemo(() => scaleItems(recipe.base, factor), [recipe, factor]);
   const scaledFlavors = useMemo(
@@ -1727,9 +1630,9 @@ function RecipeCard({
     exportBrandedHTML(
       detailTitle,
       goal,
-      servingsCount,
+      recipe.servings,
       totalMacros,
-      divideMacros(totalMacros, servingsCount),
+      divideMacros(totalMacros, recipe.servings),
       flavorLabel,
       swirl,
       topping,
@@ -1753,7 +1656,7 @@ function RecipeCard({
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-2xl font-bold text-yellow-300">{detailTitle}</h2>
-                <div className="mt-1 text-sm text-neutral-400">{isLayeredCake ? `Slices: ${servingsCount} • Layers: ${cakeLayers}` : `Servings: ${recipe.servings}`}</div>
+                <div className="mt-1 text-sm text-neutral-400">Servings: {recipe.servings}</div>
                 <div className="mt-1 text-xs text-neutral-500">Primary + Secondary flavor combo builder enabled.</div>
                 {recipe.category === "Rice Crispy Treats" && (
                   <div className="mt-1 text-xs text-neutral-500">
@@ -1771,19 +1674,6 @@ function RecipeCard({
               <AppSelect value={swirl} onChange={(e) => setSwirl(e.target.value)} options={swirlKeys} />
               <AppSelect value={topping} onChange={(e) => setTopping(e.target.value)} options={toppingKeys} />
             </div>
-            {isLayeredCake && (
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <div>
-                  <div className="mb-2 text-xs text-neutral-400">Layers</div>
-                  <AppSelect value={String(cakeLayers)} onChange={(e) => setCakeLayers(Number(e.target.value))} options={["1", "2", "3"]} />
-                </div>
-                <div>
-                  <div className="mb-2 text-xs text-neutral-400">Slices Per Cake</div>
-                  <AppSelect value={String(cakeSlices)} onChange={(e) => setCakeSlices(Number(e.target.value))} options={(recipe.sliceOptions || [6, 8]).map(String)} />
-                </div>
-              </div>
-            )}
-
             <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
               <div className="rounded-2xl border border-yellow-700/20 bg-neutral-900/70 px-4 py-3 text-sm text-neutral-300">
                 Combo Builder: <span className="text-yellow-300 font-medium">{flavorLabel}</span>
@@ -1803,8 +1693,8 @@ function RecipeCard({
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <StatCard title="Base Batch" value={fmt(baseMacros)} icon={<ChefHat className="h-4 w-4" />} />
             <StatCard title="Final Batch" value={fmt(totalMacros)} icon={<Sparkles className="h-4 w-4" />} />
-            <StatCard title={isLayeredCake ? "Per Slice" : "Per Serving"} value={fmt(divideMacros(totalMacros, servingsCount))} icon={<Calculator className="h-4 w-4" />} />
-            <StatCard title="Build" value={`${flavorLabel} • ${swirl} • ${topping} • ${proteinMode}${isLayeredCake ? ` • ${cakeLayers} layer • ${servingsCount} slices` : ""}`} icon={<Layers3 className="h-4 w-4" />} />
+            <StatCard title="Per Serving" value={fmt(divideMacros(totalMacros, recipe.servings))} icon={<Calculator className="h-4 w-4" />} />
+            <StatCard title="Build" value={`${flavorLabel} • ${swirl} • ${topping} • ${proteinMode}`} icon={<Layers3 className="h-4 w-4" />} />
           </div>
 
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -1819,9 +1709,9 @@ function RecipeCard({
 
             <Panel title="Build Deltas">
               <div className="space-y-3 text-sm">
-                <DeltaRow label={`Flavor: ${flavorLabel}`} batch={fmt(flavorMacros)} per={fmt(divideMacros(flavorMacros, servingsCount))} />
-                <DeltaRow label={`Swirl / Core: ${swirl}`} batch={fmt(swirlMacros)} per={fmt(divideMacros(swirlMacros, servingsCount))} />
-                <DeltaRow label={`Topping: ${topping}`} batch={fmt(toppingMacros)} per={fmt(divideMacros(toppingMacros, servingsCount))} />
+                <DeltaRow label={`Flavor: ${flavorLabel}`} batch={fmt(flavorMacros)} per={fmt(divideMacros(flavorMacros, recipe.servings))} />
+                <DeltaRow label={`Swirl / Core: ${swirl}`} batch={fmt(swirlMacros)} per={fmt(divideMacros(swirlMacros, recipe.servings))} />
+                <DeltaRow label={`Topping: ${topping}`} batch={fmt(toppingMacros)} per={fmt(divideMacros(toppingMacros, recipe.servings))} />
               </div>
             </Panel>
           </div>
@@ -1890,7 +1780,6 @@ function RecipeCard({
                   <p>4. Add half the batter, place the core or swirl, then cover or drag through lightly.</p>
                   <p>5. Cook, chill, or freeze based on the recipe.</p>
                   <p>6. Finish with topping only once the texture is set enough to hold it.</p>
-                  {isLayeredCake && <p>7. For cakes, cool every layer fully before stacking so the filling stays in place and slices cleanly.</p>}
                 </div>
               </div>
             </Panel>

@@ -74,20 +74,11 @@ const db: Record<string, { unit: string; cal: number; p: number; c: number; f: n
   "sugar-free syrup": { unit: "g", cal: 0.2, p: 0, c: 0.05, f: 0 },
   blueberries: { unit: "g", cal: 0.57, p: 0.007, c: 0.145, f: 0.003 },
   strawberries: { unit: "g", cal: 0.32, p: 0.007, c: 0.077, f: 0.003 },
-  almond: { unit: "g", cal: 5.79, p: 0.21, c: 0.22, f: 0.5 },
-  apple: { unit: "g", cal: 0.52, p: 0.003, c: 0.14, f: 0.002 },
-  banana: { unit: "g", cal: 0.89, p: 0.011, c: 0.228, f: 0.003 },
-  carrot: { unit: "g", cal: 0.41, p: 0.009, c: 0.096, f: 0.002 },
-  cherry: { unit: "g", cal: 0.5, p: 0.01, c: 0.12, f: 0.003 },
-  coconut: { unit: "g", cal: 3.54, p: 0.033, c: 0.15, f: 0.33 },
-  lemon: { unit: "g", cal: 0.29, p: 0.011, c: 0.093, f: 0.003 },
-  pumpkin: { unit: "g", cal: 0.26, p: 0.01, c: 0.065, f: 0.001 },
-  peach: { unit: "g", cal: 0.39, p: 0.009, c: 0.096, f: 0.003 },
-  pecan: { unit: "g", cal: 6.91, p: 0.09, c: 0.14, f: 0.72 },
-  caramel: { unit: "g", cal: 3.8, p: 0, c: 0.8, f: 0 },
   mint: { unit: "g", cal: 0.44, p: 0.03, c: 0.08, f: 0.01 },
-  salt: { unit: "g", cal: 0, p: 0, c: 0, f: 0 },
-
+  caramel: { unit: "g", cal: 3.8, p: 0.0, c: 0.8, f: 0.0 },
+  pecan: { unit: "g", cal: 6.91, p: 0.09, c: 0.14, f: 0.72 },
+  peach: { unit: "g", cal: 0.39, p: 0.009, c: 0.096, f: 0.003 },
+  banana: { unit: "g", cal: 0.89, p: 0.011, c: 0.228, f: 0.003 },
   pb2: { unit: "g", cal: 4, p: 0.5, c: 0.33, f: 0.125 },
   "biscoff spread": { unit: "g", cal: 5.84, p: 0.03, c: 0.58, f: 0.37 },
   "dark chocolate chips": { unit: "g", cal: 5, p: 0.06, c: 0.63, f: 0.27 },
@@ -865,6 +856,71 @@ const recipes: Recipe[] = [
   }
   ,
   {
+    category: "Cakes",
+    name: "Base Protein Cake",
+    clientName: "Protein Cake",
+    servings: 8,
+    base: [["whey isolate", 35], ["oat flour", 45], ["egg whites", 160], ["greek yogurt nonfat", 70], ["almond milk unsweetened", 60], ["baking powder", 6], ["zero-cal sweetener", 8], ["vanilla extract", 4]],
+    method: [
+      "Preheat oven to 350°F and prep one 6-inch round cake pan or divide the batter evenly between pans for layer baking.",
+      "Whisk the dry ingredients until evenly combined.",
+      "Whisk the wet ingredients separately until completely smooth.",
+      "Combine wet and dry, then let the batter rest 2 minutes so it thickens slightly.",
+      "Mix in the selected flavor ingredients until evenly distributed.",
+      "Bake each layer until lightly springy and the center is set.",
+      "Cool the layers fully before adding any filling or topping.",
+      "For layered cakes, spread the selected swirl or core as the filling between layers, stack, then finish with the selected topping."
+    ],
+    flavors: {
+      Vanilla: [["instant pudding sugar-free vanilla", 8]],
+      Chocolate: [["cocoa powder", 10]],
+      Strawberry: [["strawberries", 80]],
+      "Birthday Cake": [["instant pudding sugar-free vanilla", 10]],
+      "Chocolate PB": [["cocoa powder", 8], ["pb2", 12]]
+    },
+    flavorHow: {
+      Vanilla: ["Whisk the vanilla-style ingredients fully into the batter for an even cake flavor."],
+      Chocolate: ["Whisk the cocoa into the batter before baking so the cake stays smooth and evenly flavored."],
+      Strawberry: ["Fold the strawberries in gently at the end or blend them for a smoother crumb."],
+      "Birthday Cake": ["Whisk the vanilla pudding style ingredients into the batter before baking."],
+      "Chocolate PB": ["Whisk the cocoa into the batter first, then mix in the PB ingredients until smooth."]
+    },
+    swirls: {
+      None: [],
+      "Cheesecake Layer": [["greek yogurt nonfat", 60], ["pudding mix sugar-free cheesecake", 8]],
+      "PB Center": [["pb2", 18], ["almond milk unsweetened", 14]],
+      "Biscoff Ribbon": [["biscoff spread", 18]],
+      "Chocolate Ribbon": [["sugar-free syrup", 20], ["cocoa powder", 6]]
+    },
+    swirlBuild: {
+      None: ["No filling layer selected."],
+      "Cheesecake Layer": ["Mix the yogurt and cheesecake pudding until thick, then spread it evenly between cooled cake layers."],
+      "PB Center": ["Mix the PB filling until thick and spreadable, then keep it centered so it does not squeeze out the sides."],
+      "Biscoff Ribbon": ["Warm slightly and spread a thin ribbon between layers for a clean stacked look."],
+      "Chocolate Ribbon": ["Whisk smooth and use it as a thin middle layer or a top ripple."]
+    },
+    toppings: {
+      None: [],
+      "Protein Frost": [["greek yogurt nonfat", 60], ["instant pudding sugar-free vanilla", 8]],
+      "Chocolate Drip": [["sugar-free syrup", 22], ["cocoa powder", 5]],
+      "Biscoff Drip": [["biscoff spread", 16]],
+      "Fresh Fruit Top": [["strawberries", 80]]
+    },
+    toppingHow: {
+      None: ["No topping selected."],
+      "Protein Frost": ["Whisk until thick and spreadable, then frost the cooled cake lightly."],
+      "Chocolate Drip": ["Whisk until smooth and drizzle over the finished cake."],
+      "Biscoff Drip": ["Warm slightly and drizzle over the top once the cake is stacked."],
+      "Fresh Fruit Top": ["Top the finished cake right before serving."]
+    },
+    creami: [
+      "Blend the baked cake base with extra almond milk for a cake-batter style Creami pint.",
+      "Use the selected swirl after the final spin for a layered cake effect."
+    ]
+  }
+
+  ,
+  {
     category: "Rice Crispy Treats",
     name: "Base Protein Rice Crispy Treats",
     clientName: "Protein Rice Crispy Treats",
@@ -976,87 +1032,6 @@ const recipes: Recipe[] = [
     ]
   }
 
-  ,
-  {
-    category: "Cakes",
-    name: "Base Protein Cake",
-    clientName: "Protein Cake",
-    servings: 8,
-    base: [["whey isolate", 50], ["oat flour", 40], ["egg whites", 120], ["greek yogurt nonfat", 50], ["almond milk unsweetened", 40], ["baking powder", 8], ["zero-cal sweetener", 8], ["vanilla extract", 4]],
-    method: [
-      "Preheat oven to 350°F and lightly grease or line your cake pan.",
-      "Whisk all dry ingredients together until evenly combined.",
-      "Whisk the wet ingredients separately until smooth.",
-      "Combine wet and dry until a smooth cake batter forms.",
-      "Add the selected flavor ingredients.",
-      "For layered cakes, divide the batter evenly between pans or bake layers one at a time.",
-      "If using a filling or swirl, add it only after the cake layers cool fully.",
-      "Bake until the center is set and a toothpick comes out mostly clean.",
-      "Cool completely before stacking, topping, and slicing."
-    ],
-    flavors: {
-      "Vanilla": [["instant pudding sugar-free vanilla", 8]],
-      "Chocolate": [["cocoa powder", 10]],
-      "Strawberry": [["strawberries", 80]],
-      "Banana": [["banana", 80]],
-      "Cake Batter": [["instant pudding sugar-free vanilla", 10]],
-      "Red Velvet": [["cocoa powder", 6], ["zero-cal sweetener", 4]],
-      "Lemon": [["lemon", 20]],
-      "Coconut": [["coconut", 15]],
-      "Apple Cinnamon": [["apple", 80], ["cinnamon", 4]],
-      "Brownie Batter": [["cocoa powder", 12], ["zero-cal sweetener", 4]]
-    },
-    flavorHow: {
-      "Vanilla": ["Whisk the vanilla-style ingredients fully into the batter before baking."],
-      "Chocolate": ["Whisk cocoa into the dry ingredients first so the chocolate flavor spreads evenly through the cake."],
-      "Strawberry": ["Fold strawberries in gently at the end so the batter stays smooth but still gets real fruit throughout."],
-      "Banana": ["Mash the banana smooth first, then whisk it into the wet ingredients before combining with the dry mix."],
-      "Cake Batter": ["Whisk the cake batter ingredients fully into the dry base before adding the wet ingredients."],
-      "Red Velvet": ["Whisk the cocoa and sweetener fully into the dry ingredients so the cake stays evenly colored."],
-      "Lemon": ["Whisk the lemon ingredient into the wet ingredients so the flavor spreads evenly without clumping."],
-      "Coconut": ["Fold coconut in at the end so it stays distributed through the batter."],
-      "Apple Cinnamon": ["Whisk cinnamon into the dry ingredients and fold the apple in last."],
-      "Brownie Batter": ["Whisk the cocoa and sweetener into the dry mix for a denser, richer batter."]
-    },
-    swirls: {
-      "None": [],
-      "Cheesecake Layer": [["greek yogurt nonfat", 70], ["pudding mix sugar-free cheesecake", 8]],
-      "PB Layer": [["pb2", 18], ["almond milk unsweetened", 14]],
-      "Biscoff Layer": [["biscoff spread", 18]],
-      "Chocolate Ribbon": [["sugar-free syrup", 18], ["cocoa powder", 6]],
-      "Fruit Jam Layer": [["strawberries", 70]]
-    },
-    swirlBuild: {
-      "None": ["No filling or ribbon selected."],
-      "Cheesecake Layer": ["Mix the cheesecake layer until thick and smooth.", "Spread it only between cooled cake layers so it stays clean when sliced."],
-      "PB Layer": ["Mix PB2 and almond milk into a thick spread.", "Spread it between cooled layers and keep it slightly away from the outer edge."],
-      "Biscoff Layer": ["Warm slightly so it spreads cleanly, then layer it between cooled cake layers."],
-      "Chocolate Ribbon": ["Mix until glossy and spread a thin ribbon between layers or lightly over the top before stacking."],
-      "Fruit Jam Layer": ["Cook or mash the fruit slightly if needed, then spread a thin layer between cooled cake layers."]
-    },
-    toppings: {
-      "None": [],
-      "Protein Frost": [["greek yogurt nonfat", 60], ["instant pudding sugar-free vanilla", 8]],
-      "Chocolate Drip": [["sugar-free syrup", 16], ["cocoa powder", 4]],
-      "PB Drizzle": [["pb2", 12], ["almond milk unsweetened", 12]],
-      "Biscoff Drizzle": [["biscoff spread", 12]],
-      "Fresh Fruit Top": [["strawberries", 80]]
-    },
-    toppingHow: {
-      "None": ["No topping selected."],
-      "Protein Frost": ["Whisk until thick and spreadable, then frost the fully cooled cake."],
-      "Chocolate Drip": ["Whisk until smooth and drizzle over the stacked cake after it is fully cooled."],
-      "PB Drizzle": ["Mix until glossy and drizzle lightly over the finished cake."],
-      "Biscoff Drizzle": ["Warm slightly and drizzle over the finished cake right before serving."],
-      "Fresh Fruit Top": ["Top the finished cake with fruit right before serving."]
-    },
-    creami: [
-      "Blend the cake base with extra almond milk for a cake-batter style Creami pint.",
-      "Use the chosen flavor in the base, then add cheesecake, PB, or Biscoff as a post-spin ribbon."
-    ]
-  }
-
-
 ];
 
 function scaleItems(items: Ingredient[], factor: number): Ingredient[] {
@@ -1099,7 +1074,7 @@ function fmt(m: Macro) {
 
 function ingredientLine([name, amt]: Ingredient) {
   const item = db[name];
-  const unit = item ? (item.unit === "unit" ? "" : item.unit) : "";
+  const unit = !item || item.unit === "unit" ? "" : item.unit;
   return `${amt}${unit} ${name}`.trim();
 }
 
@@ -1127,8 +1102,8 @@ function buildComboFlavor(
   intensity: ComboIntensity,
   flavorMap: Record<string, Ingredient[]>
 ): Ingredient[] {
-  const primary = Array.isArray(flavorMap[primaryFlavor]) ? flavorMap[primaryFlavor] : [];
-  const secondary = secondaryFlavor !== "None" && Array.isArray(flavorMap[secondaryFlavor]) ? flavorMap[secondaryFlavor] : [];
+  const primary = flavorMap[primaryFlavor] || [];
+  const secondary = secondaryFlavor !== "None" ? (flavorMap[secondaryFlavor] || []) : [];
 
   if (secondaryFlavor === "None") return primary;
 
@@ -1146,8 +1121,7 @@ function buildComboFlavor(
 }
 
 function buildComboFlavorLabel(primaryFlavor: string, secondaryFlavor: string) {
-  if (secondaryFlavor === "None") return primaryFlavor;
-  return `${primaryFlavor} + ${secondaryFlavor}`;
+  return secondaryFlavor === "None" ? primaryFlavor : `${primaryFlavor} + ${secondaryFlavor}`;
 }
 
 
@@ -1285,7 +1259,6 @@ const genericToppingHow: Record<string, string[]> = {
 
 function getRecipeType(recipeName: string) {
   const n = recipeName.toLowerCase();
-  if (n.includes("cake") && !n.includes("cheesecake") && !n.includes("mug cake")) return "cake";
   if (n.includes("muffin")) return "muffin";
   if (n.includes("brownie")) return "brownie";
   if (n.includes("cookie")) return "cookie";
@@ -1309,10 +1282,6 @@ function getDetailedGuide(recipeName: string, flavor: string, swirl: string, top
     `Mix the base first until it is fully smooth before adding the ${flavor} ingredients.`,
     "If the flavor uses powders like cocoa, pudding mix, or PB2, whisk them in completely so there are no dry pockets.",
     "If the flavor uses fruit, chips, or spreads, fold those in last with a spoon or spatula so the texture stays clean.",
-    ...(recipeType === "cake" ? [
-      "For cakes, the batter should stay smooth and pourable, but not watery.",
-      "For layers, divide the batter evenly so the cake stacks cleanly and bakes at the same rate."
-    ] : []),
     ...(recipeType === "muffin" ? [
       "For muffins, mix only until the batter looks even. Overmixing makes them dense.",
       "If using berries or chips, fold them in gently right before portioning the batter."
@@ -1458,92 +1427,6 @@ function getDetailedGuide(recipeName: string, flavor: string, swirl: string, top
 }
 
 
-
-function buildSmartRecipeName(
-  recipeName: string,
-  goal: Goal,
-  flavorLabel: string,
-  swirl: string,
-  topping: string,
-  isCake: boolean,
-  layers: number,
-  slices: number
-) {
-  const parts = [goal, flavorLabel !== "None" ? flavorLabel : recipeName];
-  if (isCake) parts.push(`${layers}-Layer`, `${slices} Slices`);
-  if (swirl !== "None") parts.push(swirl.replace(/\s+/g, " "));
-  if (topping !== "None") parts.push(topping.replace(/\s+/g, " "));
-  return parts.join(" • ");
-}
-
-function getSmartComboSuggestion(
-  recipeType: string,
-  flavorLabel: string,
-  swirl: string,
-  topping: string,
-  isCake: boolean,
-  layers: number
-) {
-  if (isCake) {
-    if (flavorLabel.toLowerCase().includes("chocolate")) {
-      return layers >= 2
-        ? "Best paired with Cheesecake Layer or Biscoff Layer for a stacked bakery-style build."
-        : "Chocolate cakes usually hit best with a cheesecake-style middle or a light chocolate ribbon.";
-    }
-    if (flavorLabel.toLowerCase().includes("strawberry") || flavorLabel.toLowerCase().includes("banana")) {
-      return "Fruit cake builds usually work best with Cheesecake Layer and a lighter topping so the slices stay clean.";
-    }
-    return "For the cleanest cake slices, keep ribbons light and use thicker layers only between fully cooled cake rounds.";
-  }
-
-  if (recipeType === "cookie" || recipeType === "bar") {
-    return "Stuffed centers usually perform better than loose swirls for cookies and bars because they stay defined after baking or slicing.";
-  }
-  if (recipeType === "muffin" || recipeType === "brownie") {
-    return "Cheesecake or PB style centers are usually the cleanest option here because they stay visible without overmixing.";
-  }
-  if (recipeType === "creami") {
-    return "For Creami builds, save ribbons and crunchy toppings for after the final spin so texture stays strong.";
-  }
-  return "For the cleanest build, keep the flavor in the base, the swirl as a visible accent, and the topping light enough that it does not bury the finish.";
-}
-
-function getChefModeSteps(
-  recipeName: string,
-  isCake: boolean,
-  layers: number,
-  swirl: string,
-  topping: string
-) {
-  if (isCake) {
-    return [
-      "1. Preheat the oven and prep your pan or pans first so the batter can go straight in once mixed.",
-      "2. Mix the cake batter completely smooth before adding flavor ingredients.",
-      "3. Bake all layers first. Do not prepare the filling on the front end if it needs chilling or thickening while the cake is still hot.",
-      "4. While the cake bakes, make the selected filling or ribbon and chill it if needed so it thickens.",
-      "5. Let cake layers cool fully before stacking. Warm cake plus filling will slide and ruin the layers.",
-      `6. Build ${layers > 1 ? `${layers} layers` : "the cake"} by keeping the filling slightly inside the edge so slices stay clean.`,
-      topping !== "None"
-        ? "7. Add the topping only after the cake is stacked and stable so it does not run off the sides."
-        : "7. Skip the topping and move straight to slicing once the cake is stable.",
-      "8. Chill the finished cake briefly before slicing for the cleanest serving lines."
-    ];
-  }
-
-  return [
-    "1. Mix the base fully smooth first so the texture is set before extras go in.",
-    "2. Add flavor ingredients next.",
-    swirl !== "None"
-      ? "3. Build the swirl or core after half the base is placed so it stays centered and visible."
-      : "3. Skip the swirl step and go straight to baking, chilling, or freezing.",
-    "4. Cook or chill the recipe until the main texture is fully set.",
-    topping !== "None"
-      ? "5. Finish with the topping last so it keeps its texture and visual contrast."
-      : "5. No topping needed — serve once the texture is ready."
-  ];
-}
-
-
 export default function SclassRecipeAppFinal() {
   const [goal, setGoal] = useState<Goal>("Lean");
   const [category, setCategory] = useState("All");
@@ -1684,6 +1567,7 @@ export default function SclassRecipeAppFinal() {
   );
 }
 
+
 function RecipeCard({
   recipe,
   goal,
@@ -1699,21 +1583,6 @@ function RecipeCard({
   const isCake = recipe.category === "Cakes";
 
   const scaledBase = useMemo(() => scaleItems(recipe.base, factor), [recipe, factor]);
-  const scaledFlavors = useMemo(
-    () => Object.fromEntries(Object.entries(recipe.flavors).map(([k, v]) => [k, scaleItems(v, factor)])),
-    [recipe, factor]
-  );
-  const scaledSwirls = useMemo(
-    () => Object.fromEntries(Object.entries(recipe.swirls).map(([k, v]) => [k, scaleItems(v, factor)])),
-    [recipe, factor]
-  );
-  const scaledToppings = useMemo(
-    () => Object.fromEntries(Object.entries(recipe.toppings).map(([k, v]) => [k, scaleItems(v, factor)])),
-    [recipe, factor]
-  );
-
-  const packFlavors = {};
-
   const sortWithNoneFirst = (keys: string[]) => {
     const withoutNone = keys.filter((k) => k !== "None").sort((a, b) => a.localeCompare(b));
     return ["None", ...withoutNone];
@@ -1744,6 +1613,7 @@ function RecipeCard({
   const [topping, setTopping] = useState("None");
   const [cakeLayers, setCakeLayers] = useState("1");
   const [cakeSlices, setCakeSlices] = useState("8");
+  const [chefMode, setChefMode] = useState(true);
 
   useEffect(() => {
     if (!flavorKeys.includes(primaryFlavor)) setPrimaryFlavor("None");
@@ -1755,18 +1625,13 @@ function RecipeCard({
     if (!toppingKeys.includes(topping)) setTopping(toppingKeys[0]);
   }, [goal, primaryFlavor, secondaryFlavor]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const cakeLayerCount = isCake ? Number(cakeLayers) : 1;
-  const cakeServingCount = isCake ? Number(cakeSlices) : recipe.servings;
-  const cakeFillingMultiplier = isCake ? Math.max(1, cakeLayerCount - 1) : 1;
+  const layerCount = isCake ? Number(cakeLayers) : 1;
+  const servingCount = isCake ? Number(cakeSlices) : recipe.servings;
 
-  const flavorList = isCake
-    ? scaleItems(buildComboFlavor(primaryFlavor, secondaryFlavor, comboIntensity, mergedFlavors), cakeLayerCount)
-    : buildComboFlavor(primaryFlavor, secondaryFlavor, comboIntensity, mergedFlavors);
+  const rawFlavorList = buildComboFlavor(primaryFlavor, secondaryFlavor, comboIntensity, mergedFlavors);
   const flavorLabel = buildComboFlavorLabel(primaryFlavor, secondaryFlavor);
-  const swirlList = isCake
-    ? scaleItems(mergedSwirls[swirl] || [], cakeFillingMultiplier)
-    : (mergedSwirls[swirl] || []);
-  const toppingList = mergedToppings[topping] || [];
+  const rawSwirlList = mergedSwirls[swirl] || [];
+  const rawToppingList = mergedToppings[topping] || [];
 
   const isRiceCrispy = recipe.category === "Rice Crispy Treats";
   const shouldUseChocolateCereal =
@@ -1781,10 +1646,6 @@ function RecipeCard({
       )
     : scaledBase;
 
-  if (isCake) {
-    baseList = scaleItems(baseList, cakeLayerCount);
-  }
-
   if (isRiceCrispy && proteinMode === "No Whey") {
     baseList = baseList
       .filter(([name]) => name !== "whey isolate")
@@ -1796,27 +1657,71 @@ function RecipeCard({
       });
   }
 
+  if (isCake) {
+    baseList = scaleItems(baseList, layerCount);
+  }
+
+  const flavorList = isCake ? scaleItems(rawFlavorList, layerCount) : rawFlavorList;
+  const swirlList = isCake && swirl !== "None" ? scaleItems(rawSwirlList, Math.max(1, layerCount - 1)) : rawSwirlList;
+  const toppingList = isCake && topping !== "None"
+    ? scaleItems(rawToppingList, layerCount === 3 ? 1.25 : layerCount === 2 ? 1.1 : 1)
+    : rawToppingList;
+
   const baseMacros = calcMacros(baseList);
   const flavorMacros = calcMacros(flavorList);
   const swirlMacros = calcMacros(swirlList);
   const toppingMacros = calcMacros(toppingList);
   const totalMacros = addMacros(addMacros(addMacros(baseMacros, flavorMacros), swirlMacros), toppingMacros);
-  const servingCount = isCake ? cakeServingCount : recipe.servings;
 
-  const detailTitle = recipe.name;
+  const autoName = isCake
+    ? `${flavorLabel === "None" ? "Signature" : flavorLabel} ${cakeLayers}-Layer ${goal} Cake`
+    : `${flavorLabel === "None" ? recipe.clientName : flavorLabel} ${recipe.clientName}`;
+
+  const detailTitle = autoName;
   const detailedGuide = getDetailedGuide(recipe.name, flavorLabel, swirl, topping);
-  const smartBuildName = buildSmartRecipeName(recipe.name, goal, flavorLabel, swirl, topping, isCake, cakeLayerCount, cakeServingCount);
-  const smartSuggestion = getSmartComboSuggestion(detailedGuide.recipeType, flavorLabel, swirl, topping, isCake, cakeLayerCount);
-  const chefModeSteps = getChefModeSteps(recipe.name, isCake, cakeLayerCount, swirl, topping);
-  const flavorMethodItems = secondaryFlavor === "None"
-    ? (genericFlavorHow[primaryFlavor] || recipe.flavorHow?.[primaryFlavor] || detailedGuide.flavorGuide)
-    : [
-        `Primary flavor: ${primaryFlavor}. Secondary flavor: ${secondaryFlavor}. Intensity: ${comboIntensity}.`,
-        "Build the combo by mixing the primary flavor into the base first, then blending in the secondary flavor gently so both stay balanced.",
-        "If both flavors use wet add-ins or fruit, add the heavier ingredient first and fold delicate fruit or chips in last.",
-      ];
+
+  const flavorMethodItems =
+    secondaryFlavor === "None"
+      ? genericFlavorHow[primaryFlavor] || recipe.flavorHow?.[primaryFlavor] || detailedGuide.flavorGuide
+      : [
+          `Primary flavor: ${primaryFlavor}. Secondary flavor: ${secondaryFlavor}. Intensity: ${comboIntensity}.`,
+          "Build the combo by mixing the primary flavor into the base first, then blending in the secondary flavor gently so both stay balanced.",
+          "If both flavors use wet add-ins or fruit, add the heavier ingredient first and fold delicate fruit or chips in last.",
+        ];
+
   const swirlMethodItems = genericSwirlHow[swirl] || recipe.swirlBuild?.[swirl] || detailedGuide.swirlGuide;
   const toppingMethodItems = genericToppingHow[topping] || recipe.toppingHow?.[topping] || detailedGuide.toppingGuide;
+
+  const smartSuggestion = isCake
+    ? swirl === "None" && topping === "None"
+      ? "Best next move: add a center layer or drip so the cake looks premium and slices cleaner."
+      : swirl !== "None" && topping === "None"
+      ? "This cake already has a filling. Add a drip or light protein frost to finish the stacked look."
+      : topping !== "None" && layerCount === 1
+      ? "Single-layer cakes usually look best with a clean top finish and no heavy center."
+      : `Strong build: ${flavorLabel} cake with ${swirl} and ${topping}.`
+    : flavorLabel === "None"
+    ? "Pick at least one flavor to turn the base into a real signature build."
+    : `Strong pairing: ${flavorLabel} with ${swirl === "None" ? "a clean finish" : swirl}.`;
+
+  const chefTimeline = isCake
+    ? [
+        `1. Preheat and prep ${layerCount === 1 ? "your pan" : `${layerCount} pans`} first.`,
+        "2. Mix the batter fully smooth before adding the flavor.",
+        "3. Bake each layer and cool completely before stacking anything.",
+        swirl !== "None"
+          ? `4. Build the ${swirl} only after the layers are cool so the filling holds shape.`
+          : "4. Keep the cake unfrosted until the layers are fully cool.",
+        topping !== "None"
+          ? `5. Finish with ${topping} last so the top stays clean and polished.`
+          : "5. Slice only after the cake is fully set for cleaner serving lines.",
+      ]
+    : [
+        "1. Mix the base smooth first.",
+        `2. Add ${flavorLabel === "None" ? "your chosen flavor" : flavorLabel} next.`,
+        swirl !== "None" ? `3. Build the ${swirl} before the final cook/chill step.` : "3. Move straight to cook or chill once the flavor is mixed.",
+        topping !== "None" ? `4. Finish with ${topping} once the texture is set.` : "4. Finish once the recipe texture is fully set.",
+      ];
 
   const exportBranded = () =>
     exportBrandedHTML(
@@ -1848,8 +1753,12 @@ function RecipeCard({
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-2xl font-bold text-yellow-300">{detailTitle}</h2>
-                <div className="mt-1 text-sm text-neutral-400">{isCake ? `Servings: ${servingCount} slices • Layers: ${cakeLayerCount}` : `Servings: ${recipe.servings}`}</div>
-                <div className="mt-1 text-xs text-neutral-500">Primary + Secondary flavor combo builder enabled.</div>
+                <div className="mt-1 text-sm text-neutral-400">
+                  Servings: {servingCount}{isCake ? " slices per cake" : ""}
+                </div>
+                <div className="mt-1 text-xs text-neutral-500">
+                  {isCake ? "Interactive dessert designer preview enabled." : "Primary + Secondary flavor combo builder enabled."}
+                </div>
                 {recipe.category === "Rice Crispy Treats" && (
                   <div className="mt-1 text-xs text-neutral-500">
                     Protein source: {proteinMode}. Chocolate builds auto-switch to chocolate crispy rice cereal.
@@ -1859,56 +1768,77 @@ function RecipeCard({
               <img src={BRAND.logos.mark} alt="" className="h-16 w-16 object-contain opacity-95" />
             </div>
 
-            <div className={`grid grid-cols-1 gap-3 sm:grid-cols-2 ${isCake ? "xl:grid-cols-4" : "xl:grid-cols-5"}`}>
-              <SelectField label="Primary Flavor">
-                <AppSelect value={primaryFlavor} onChange={(e) => setPrimaryFlavor(e.target.value)} options={flavorKeys} />
-              </SelectField>
-              <SelectField label="Secondary Flavor">
-                <AppSelect value={secondaryFlavor} onChange={(e) => setSecondaryFlavor(e.target.value)} options={flavorKeys} />
-              </SelectField>
-              <SelectField label="Combo Intensity">
-                <AppSelect value={comboIntensity} onChange={(e) => setComboIntensity(e.target.value as ComboIntensity)} options={["Light Blend", "Even Split", "Primary Dominant"]} />
-              </SelectField>
-              <SelectField label="Swirl / Core">
-                <AppSelect value={swirl} onChange={(e) => setSwirl(e.target.value)} options={swirlKeys} />
-              </SelectField>
-              <SelectField label="Topping">
-                <AppSelect value={topping} onChange={(e) => setTopping(e.target.value)} options={toppingKeys} />
-              </SelectField>
+            <div className={`grid grid-cols-1 gap-3 ${isCake ? "sm:grid-cols-2 xl:grid-cols-7" : "sm:grid-cols-2 xl:grid-cols-5"}`}>
+              <LabeledSelect label="Primary Flavor" value={primaryFlavor} onChange={(e) => setPrimaryFlavor(e.target.value)} options={flavorKeys} />
+              <LabeledSelect label="Secondary Flavor" value={secondaryFlavor} onChange={(e) => setSecondaryFlavor(e.target.value)} options={flavorKeys} />
+              <LabeledSelect label="Combo Intensity" value={comboIntensity} onChange={(e) => setComboIntensity(e.target.value as ComboIntensity)} options={["Light Blend", "Even Split", "Primary Dominant"]} />
+              <LabeledSelect label="Swirl / Core" value={swirl} onChange={(e) => setSwirl(e.target.value)} options={swirlKeys} />
+              <LabeledSelect label="Topping" value={topping} onChange={(e) => setTopping(e.target.value)} options={toppingKeys} />
               {isCake && (
-                <SelectField label="Layers">
-                  <AppSelect value={cakeLayers} onChange={(e) => setCakeLayers(e.target.value)} options={["1","2","3"]} />
-                </SelectField>
-              )}
-              {isCake && (
-                <SelectField label="Slices">
-                  <AppSelect value={cakeSlices} onChange={(e) => setCakeSlices(e.target.value)} options={["6","8"]} />
-                </SelectField>
+                <>
+                  <LabeledSelect label="Layers" value={cakeLayers} onChange={(e) => setCakeLayers(e.target.value)} options={["1", "2", "3"]} />
+                  <LabeledSelect label="Slices" value={cakeSlices} onChange={(e) => setCakeSlices(e.target.value)} options={["6", "8"]} />
+                </>
               )}
             </div>
-            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+
+            <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
               <div className="rounded-2xl border border-yellow-700/20 bg-neutral-900/70 px-4 py-3 text-sm text-neutral-300">
-                Build Name: <span className="text-yellow-300 font-medium">{smartBuildName}</span>
-                <div className="mt-1 text-xs text-neutral-400">Combo Builder: {flavorLabel}</div>
+                Build Name: <span className="text-yellow-300 font-medium">{autoName}</span>
               </div>
-              <button
-                onClick={exportBranded}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-yellow-700/40 bg-neutral-950 px-5 text-white transition hover:border-yellow-500"
-              >
-                <Download className="h-4 w-4" />
-                Export
-              </button>
+              <div className="rounded-2xl border border-yellow-700/20 bg-neutral-900/70 px-4 py-3 text-sm text-neutral-300">
+                Smart Suggestion: <span className="text-yellow-300 font-medium">{smartSuggestion}</span>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setChefMode((v) => !v)}
+                  className={`inline-flex h-12 items-center justify-center gap-2 rounded-2xl border px-5 text-white transition ${chefMode ? "border-yellow-500 bg-yellow-500/10" : "border-yellow-700/40 bg-neutral-950 hover:border-yellow-500"}`}
+                >
+                  <ChefHat className="h-4 w-4" />
+                  Chef Mode {chefMode ? "On" : "Off"}
+                </button>
+                <button
+                  onClick={exportBranded}
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-yellow-700/40 bg-neutral-950 px-5 text-white transition hover:border-yellow-500"
+                >
+                  <Download className="h-4 w-4" />
+                  Export
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="space-y-6 p-5 sm:p-6">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className={`grid grid-cols-1 gap-4 ${isCake ? "xl:grid-cols-5" : "xl:grid-cols-4"} sm:grid-cols-2`}>
             <StatCard title="Base Batch" value={fmt(baseMacros)} icon={<ChefHat className="h-4 w-4" />} />
             <StatCard title="Final Batch" value={fmt(totalMacros)} icon={<Sparkles className="h-4 w-4" />} />
             <StatCard title="Per Serving" value={fmt(divideMacros(totalMacros, servingCount))} icon={<Calculator className="h-4 w-4" />} />
-            <StatCard title="Build" value={`${flavorLabel} • ${swirl} • ${topping} • ${proteinMode}${isCake ? ` • ${cakeLayerCount} layer • ${servingCount} slices` : ""}`} icon={<Layers3 className="h-4 w-4" />} />
+            <StatCard title="Build" value={`${flavorLabel} • ${swirl} • ${topping} • ${proteinMode}`} icon={<Layers3 className="h-4 w-4" />} />
+            {isCake && <StatCard title="Cake Setup" value={`${cakeLayers} layer${cakeLayers === "1" ? "" : "s"} • ${cakeSlices} slices`} icon={<Layers3 className="h-4 w-4" />} />}
           </div>
+
+          {isCake && (
+            <Panel title="Dessert Designer Preview">
+              <CakeDesignerPreview
+                layers={layerCount}
+                slices={servingCount}
+                flavor={flavorLabel}
+                swirl={swirl}
+                topping={topping}
+              />
+            </Panel>
+          )}
+
+          {chefMode && (
+            <Panel title="Chef Mode">
+              <ol className="list-decimal space-y-3 pl-5 text-sm text-neutral-200">
+                {chefTimeline.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+            </Panel>
+          )}
 
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             <Panel title="Ingredients Breakdown">
@@ -1997,19 +1927,6 @@ function RecipeCard({
               </div>
             </Panel>
           </div>
-
-          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-            <Panel title="Smart Suggestion">
-              <div className="rounded-2xl border border-yellow-700/20 bg-neutral-950/70 p-4 text-sm text-neutral-200">
-                <div className="mb-2 font-medium text-yellow-300">Best pairing note</div>
-                <p>{smartSuggestion}</p>
-              </div>
-            </Panel>
-
-            <Panel title="Chef Mode">
-              <GuideSection title="Best timing order" items={chefModeSteps} />
-            </Panel>
-          </div>
         </div>
       </div>
     </motion.div>
@@ -2047,16 +1964,6 @@ function ControlCard({ label, children }: { label: string; children: React.React
   );
 }
 
-
-function SelectField({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="rounded-2xl border border-yellow-700/15 bg-neutral-950/40 p-3">
-      <div className="mb-2 text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-400">{label}</div>
-      {children}
-    </div>
-  );
-}
-
 function AppSelect({
   value,
   onChange,
@@ -2078,6 +1985,105 @@ function AppSelect({
         </option>
       ))}
     </select>
+  );
+}
+
+
+function LabeledSelect({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  options: string[];
+}) {
+  return (
+    <div>
+      <div className="mb-2 text-xs text-neutral-400">{label}</div>
+      <AppSelect value={value} onChange={onChange} options={options} />
+    </div>
+  );
+}
+
+function CakeDesignerPreview({
+  layers,
+  slices,
+  flavor,
+  swirl,
+  topping,
+}: {
+  layers: number;
+  slices: number;
+  flavor: string;
+  swirl: string;
+  topping: string;
+}) {
+  const layerItems = Array.from({ length: layers }, (_, i) => i);
+  const toppingLabel = topping === "None" ? "Clean top finish" : topping;
+  const fillingLabel = swirl === "None" ? "No center filling" : swirl;
+
+  return (
+    <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
+      <div className="mx-auto flex w-full max-w-[320px] items-end justify-center">
+        <div className="relative w-full">
+          {topping !== "None" && (
+            <div className="mx-auto mb-1 h-6 w-[88%] rounded-t-[999px] border border-yellow-500/30 bg-gradient-to-b from-yellow-300/30 to-yellow-700/10" />
+          )}
+          <div className="rounded-[2rem] border border-yellow-700/30 bg-neutral-950 px-5 py-4 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+            <div className="flex flex-col-reverse gap-2">
+              {layerItems.map((layer) => (
+                <React.Fragment key={layer}>
+                  <div className="relative h-14 overflow-hidden rounded-2xl border border-yellow-600/20 bg-gradient-to-r from-yellow-100/10 via-yellow-300/10 to-yellow-100/10">
+                    <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-center text-[11px] uppercase tracking-[0.24em] text-yellow-100/85">
+                      {flavor === "None" ? "Signature Layer" : flavor}
+                    </div>
+                    {swirl !== "None" && (
+                      <div className="absolute left-1/2 top-2 bottom-2 w-4 -translate-x-1/2 rounded-full border border-yellow-200/20 bg-yellow-200/15" />
+                    )}
+                  </div>
+                  {layer < layers - 1 && (
+                    <div className="mx-auto h-3 w-[90%] rounded-full border border-yellow-500/20 bg-yellow-100/10" />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+          <div className="mx-auto mt-3 h-3 w-[86%] rounded-full bg-yellow-800/30 blur-[1px]" />
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="rounded-2xl border border-yellow-700/20 bg-neutral-950/70 p-4">
+          <div className="text-sm uppercase tracking-[0.28em] text-yellow-500">Live Cake Preview</div>
+          <div className="mt-3 text-2xl font-bold text-yellow-300">{layers}-Layer Designer Cake</div>
+          <div className="mt-2 text-sm text-neutral-300">
+            Built for {slices} slices with a {toppingLabel.toLowerCase()} and {fillingLabel.toLowerCase()}.
+          </div>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-3">
+          <div className="rounded-2xl border border-yellow-700/20 bg-neutral-950/70 p-4">
+            <div className="text-xs text-neutral-400">Flavor</div>
+            <div className="mt-2 text-sm font-medium text-yellow-300">{flavor === "None" ? "Signature" : flavor}</div>
+          </div>
+          <div className="rounded-2xl border border-yellow-700/20 bg-neutral-950/70 p-4">
+            <div className="text-xs text-neutral-400">Center</div>
+            <div className="mt-2 text-sm font-medium text-yellow-300">{fillingLabel}</div>
+          </div>
+          <div className="rounded-2xl border border-yellow-700/20 bg-neutral-950/70 p-4">
+            <div className="text-xs text-neutral-400">Finish</div>
+            <div className="mt-2 text-sm font-medium text-yellow-300">{toppingLabel}</div>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-yellow-700/20 bg-neutral-950/70 p-4 text-sm text-neutral-300">
+          This is a live designer visual, not a stock photo. It updates instantly with layer, flavor, filling, and topping changes so clients can understand the build without slowing the app down.
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -1458,6 +1458,92 @@ function getDetailedGuide(recipeName: string, flavor: string, swirl: string, top
 }
 
 
+
+function buildSmartRecipeName(
+  recipeName: string,
+  goal: Goal,
+  flavorLabel: string,
+  swirl: string,
+  topping: string,
+  isCake: boolean,
+  layers: number,
+  slices: number
+) {
+  const parts = [goal, flavorLabel !== "None" ? flavorLabel : recipeName];
+  if (isCake) parts.push(`${layers}-Layer`, `${slices} Slices`);
+  if (swirl !== "None") parts.push(swirl.replace(/\s+/g, " "));
+  if (topping !== "None") parts.push(topping.replace(/\s+/g, " "));
+  return parts.join(" • ");
+}
+
+function getSmartComboSuggestion(
+  recipeType: string,
+  flavorLabel: string,
+  swirl: string,
+  topping: string,
+  isCake: boolean,
+  layers: number
+) {
+  if (isCake) {
+    if (flavorLabel.toLowerCase().includes("chocolate")) {
+      return layers >= 2
+        ? "Best paired with Cheesecake Layer or Biscoff Layer for a stacked bakery-style build."
+        : "Chocolate cakes usually hit best with a cheesecake-style middle or a light chocolate ribbon.";
+    }
+    if (flavorLabel.toLowerCase().includes("strawberry") || flavorLabel.toLowerCase().includes("banana")) {
+      return "Fruit cake builds usually work best with Cheesecake Layer and a lighter topping so the slices stay clean.";
+    }
+    return "For the cleanest cake slices, keep ribbons light and use thicker layers only between fully cooled cake rounds.";
+  }
+
+  if (recipeType === "cookie" || recipeType === "bar") {
+    return "Stuffed centers usually perform better than loose swirls for cookies and bars because they stay defined after baking or slicing.";
+  }
+  if (recipeType === "muffin" || recipeType === "brownie") {
+    return "Cheesecake or PB style centers are usually the cleanest option here because they stay visible without overmixing.";
+  }
+  if (recipeType === "creami") {
+    return "For Creami builds, save ribbons and crunchy toppings for after the final spin so texture stays strong.";
+  }
+  return "For the cleanest build, keep the flavor in the base, the swirl as a visible accent, and the topping light enough that it does not bury the finish.";
+}
+
+function getChefModeSteps(
+  recipeName: string,
+  isCake: boolean,
+  layers: number,
+  swirl: string,
+  topping: string
+) {
+  if (isCake) {
+    return [
+      "1. Preheat the oven and prep your pan or pans first so the batter can go straight in once mixed.",
+      "2. Mix the cake batter completely smooth before adding flavor ingredients.",
+      "3. Bake all layers first. Do not prepare the filling on the front end if it needs chilling or thickening while the cake is still hot.",
+      "4. While the cake bakes, make the selected filling or ribbon and chill it if needed so it thickens.",
+      "5. Let cake layers cool fully before stacking. Warm cake plus filling will slide and ruin the layers.",
+      `6. Build ${layers > 1 ? `${layers} layers` : "the cake"} by keeping the filling slightly inside the edge so slices stay clean.`,
+      topping !== "None"
+        ? "7. Add the topping only after the cake is stacked and stable so it does not run off the sides."
+        : "7. Skip the topping and move straight to slicing once the cake is stable.",
+      "8. Chill the finished cake briefly before slicing for the cleanest serving lines."
+    ];
+  }
+
+  return [
+    "1. Mix the base fully smooth first so the texture is set before extras go in.",
+    "2. Add flavor ingredients next.",
+    swirl !== "None"
+      ? "3. Build the swirl or core after half the base is placed so it stays centered and visible."
+      : "3. Skip the swirl step and go straight to baking, chilling, or freezing.",
+    "4. Cook or chill the recipe until the main texture is fully set.",
+    topping !== "None"
+      ? "5. Finish with the topping last so it keeps its texture and visual contrast."
+      : "5. No topping needed — serve once the texture is ready."
+  ];
+}
+
+
 export default function SclassRecipeAppFinal() {
   const [goal, setGoal] = useState<Goal>("Lean");
   const [category, setCategory] = useState("All");
@@ -1719,6 +1805,9 @@ function RecipeCard({
 
   const detailTitle = recipe.name;
   const detailedGuide = getDetailedGuide(recipe.name, flavorLabel, swirl, topping);
+  const smartBuildName = buildSmartRecipeName(recipe.name, goal, flavorLabel, swirl, topping, isCake, cakeLayerCount, cakeServingCount);
+  const smartSuggestion = getSmartComboSuggestion(detailedGuide.recipeType, flavorLabel, swirl, topping, isCake, cakeLayerCount);
+  const chefModeSteps = getChefModeSteps(recipe.name, isCake, cakeLayerCount, swirl, topping);
   const flavorMethodItems = secondaryFlavor === "None"
     ? (genericFlavorHow[primaryFlavor] || recipe.flavorHow?.[primaryFlavor] || detailedGuide.flavorGuide)
     : [
@@ -1735,7 +1824,7 @@ function RecipeCard({
       goal,
       servingCount,
       totalMacros,
-      divideMacros(totalMacros, recipe.servings),
+      divideMacros(totalMacros, servingCount),
       flavorLabel,
       swirl,
       topping,
@@ -1770,18 +1859,37 @@ function RecipeCard({
               <img src={BRAND.logos.mark} alt="" className="h-16 w-16 object-contain opacity-95" />
             </div>
 
-            <div className={`grid grid-cols-1 gap-3 ${isCake ? "sm:grid-cols-7" : "sm:grid-cols-5"}`}>
-              <AppSelect value={primaryFlavor} onChange={(e) => setPrimaryFlavor(e.target.value)} options={flavorKeys} />
-              <AppSelect value={secondaryFlavor} onChange={(e) => setSecondaryFlavor(e.target.value)} options={flavorKeys} />
-              <AppSelect value={comboIntensity} onChange={(e) => setComboIntensity(e.target.value as ComboIntensity)} options={["Light Blend", "Even Split", "Primary Dominant"]} />
-              <AppSelect value={swirl} onChange={(e) => setSwirl(e.target.value)} options={swirlKeys} />
-              <AppSelect value={topping} onChange={(e) => setTopping(e.target.value)} options={toppingKeys} />
-              {isCake && <AppSelect value={cakeLayers} onChange={(e) => setCakeLayers(e.target.value)} options={["1","2","3"]} />}
-              {isCake && <AppSelect value={cakeSlices} onChange={(e) => setCakeSlices(e.target.value)} options={["6","8"]} />}
+            <div className={`grid grid-cols-1 gap-3 sm:grid-cols-2 ${isCake ? "xl:grid-cols-4" : "xl:grid-cols-5"}`}>
+              <SelectField label="Primary Flavor">
+                <AppSelect value={primaryFlavor} onChange={(e) => setPrimaryFlavor(e.target.value)} options={flavorKeys} />
+              </SelectField>
+              <SelectField label="Secondary Flavor">
+                <AppSelect value={secondaryFlavor} onChange={(e) => setSecondaryFlavor(e.target.value)} options={flavorKeys} />
+              </SelectField>
+              <SelectField label="Combo Intensity">
+                <AppSelect value={comboIntensity} onChange={(e) => setComboIntensity(e.target.value as ComboIntensity)} options={["Light Blend", "Even Split", "Primary Dominant"]} />
+              </SelectField>
+              <SelectField label="Swirl / Core">
+                <AppSelect value={swirl} onChange={(e) => setSwirl(e.target.value)} options={swirlKeys} />
+              </SelectField>
+              <SelectField label="Topping">
+                <AppSelect value={topping} onChange={(e) => setTopping(e.target.value)} options={toppingKeys} />
+              </SelectField>
+              {isCake && (
+                <SelectField label="Layers">
+                  <AppSelect value={cakeLayers} onChange={(e) => setCakeLayers(e.target.value)} options={["1","2","3"]} />
+                </SelectField>
+              )}
+              {isCake && (
+                <SelectField label="Slices">
+                  <AppSelect value={cakeSlices} onChange={(e) => setCakeSlices(e.target.value)} options={["6","8"]} />
+                </SelectField>
+              )}
             </div>
             <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
               <div className="rounded-2xl border border-yellow-700/20 bg-neutral-900/70 px-4 py-3 text-sm text-neutral-300">
-                Combo Builder: <span className="text-yellow-300 font-medium">{flavorLabel}</span>
+                Build Name: <span className="text-yellow-300 font-medium">{smartBuildName}</span>
+                <div className="mt-1 text-xs text-neutral-400">Combo Builder: {flavorLabel}</div>
               </div>
               <button
                 onClick={exportBranded}
@@ -1889,6 +1997,19 @@ function RecipeCard({
               </div>
             </Panel>
           </div>
+
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+            <Panel title="Smart Suggestion">
+              <div className="rounded-2xl border border-yellow-700/20 bg-neutral-950/70 p-4 text-sm text-neutral-200">
+                <div className="mb-2 font-medium text-yellow-300">Best pairing note</div>
+                <p>{smartSuggestion}</p>
+              </div>
+            </Panel>
+
+            <Panel title="Chef Mode">
+              <GuideSection title="Best timing order" items={chefModeSteps} />
+            </Panel>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -1921,6 +2042,16 @@ function ControlCard({ label, children }: { label: string; children: React.React
   return (
     <div>
       <div className="mb-2 text-xs text-neutral-400">{label}</div>
+      {children}
+    </div>
+  );
+}
+
+
+function SelectField({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl border border-yellow-700/15 bg-neutral-950/40 p-3">
+      <div className="mb-2 text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-400">{label}</div>
       {children}
     </div>
   );
